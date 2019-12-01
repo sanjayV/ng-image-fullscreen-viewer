@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
+import { NgImageFullscreenViewModule } from 'ng-image-fullscreen-view';
 import { AppComponent } from './app.component';
 
 
@@ -10,7 +9,8 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NgImageFullscreenViewModule
   ],
   providers: [],
   bootstrap: [AppComponent]

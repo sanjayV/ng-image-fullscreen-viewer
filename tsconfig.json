@@ -3,7 +3,7 @@
   "compilerOptions": {
     "downlevelIteration": true,
     "importHelpers": true,
-    "outDir": "./dist/out-tsc",
+    "outDir": "./dist/ng-image-fullscreen-view",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
