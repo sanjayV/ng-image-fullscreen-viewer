@@ -2,16 +2,19 @@
     <div class="lightbox-wrapper">
         <a class="close" (click)="closeLightbox()"></a>
         <div class="lightbox-div" #lightboxDiv>
-            <div class="pre-loader">
+            <div *ngIf="showLoading" class="pre-loader">
                 <div class="mnml-spinner"></div>
             </div>
-
-            <div class="lightbox-image-main">
+            <div class="lightbox-image-main"
+                [ngStyle]="{'margin-left': marginLeft + 'px', 'grid-template-columns': 'repeat('+images.length+',1fr)', 'transition': effectStyle}">
                 <div class="lightbox-image"
+                    [ngStyle]="{'width': popupWidth + 'px'}"
                     *ngFor="let img of images; let i = index"
-                    [ngClass]="{'ng-image-lightbox-show': i == currentImageIndex, 'ng-image-lightbox-hide': i != currentImageIndex}">
+                    [attr.id]="'ng-lightbox-image-' + i"
+                    (touchstart)="swipeLightboxImg($event, 'start')"
+                    (touchend)="swipeLightboxImg($event, 'end')"
+                    #lightboxImageDiv>
                     <custom-img
-                        *ngIf="i == currentImageIndex"
                         [imageUrl]="img.image || img.video"
                         [isVideo]="!!(img.posterImage || img.video)"
                         [videoAutoPlay]="videoAutoPlay"

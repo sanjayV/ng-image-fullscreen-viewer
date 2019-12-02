@@ -45,18 +45,14 @@ export class NgImageFullscreenViewComponent implements OnInit, AfterViewInit, On
     title: string = '';
     currentImageIndex: number = 0;
 
+    // for swipe event
+    private swipeLightboxImgCoord?: [number, number];
+    private swipeLightboxImgTime?: number;
+
+    @ViewChild('lightboxDiv', { static: false }) lightboxDiv;
+    @ViewChild('lightboxImageDiv', { static: false }) lightboxImageDiv;
+
     // @Inputs
-    @Input()
-    set show(visiableFlag: boolean) {
-        this.imageFullscreenView = visiableFlag;
-        this.elRef.nativeElement.ownerDocument.body.style.overflow = '';
-        if (visiableFlag === true) {
-            this.elRef.nativeElement.ownerDocument.body.style.overflow = 'hidden';
-        }
-    }
-    @Input() videoAutoPlay: boolean = false;
-    @Input() direction: string = 'ltr';
-    @Input() images: Array<object> = [];
     @Input()
     set imageIndex(index: number) {
         if (index !== undefined && index > -1 && index < this.images.length) {
@@ -64,6 +60,19 @@ export class NgImageFullscreenViewComponent implements OnInit, AfterViewInit, On
         }
         this.nextPrevDisable();
     }
+    @Input()
+    set show(visiableFlag: boolean) {
+        this.imageFullscreenView = visiableFlag;
+        this.elRef.nativeElement.ownerDocument.body.style.overflow = '';
+        if (visiableFlag === true) {
+            this.elRef.nativeElement.ownerDocument.body.style.overflow = 'hidden';
+            // this.getImageData();
+            this.setPopupSliderWidth();
+        }
+    }
+    @Input() videoAutoPlay: boolean = false;
+    @Input() direction: string = 'ltr';
+    @Input() images: Array<object> = [];
     @Input() paginationShow: boolean = false;
     @Input()
     set animationSpeed(data: number) {
@@ -79,9 +88,14 @@ export class NgImageFullscreenViewComponent implements OnInit, AfterViewInit, On
 
     // @Output
     @Output() close = new EventEmitter<any>();
-    /* @Output() prevImage = new EventEmitter<any>(); */
-    /* @Output() nextImage = new EventEmitter<any>(); */
+    @Output() prevImage = new EventEmitter<any>();
+    @Output() nextImage = new EventEmitter<any>();
 
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        this.effectStyle = 'none';
+        this.setPopupSliderWidth();
+    }
     @HostListener('document:keyup', ['$event'])
     handleKeyboardEvent(event: KeyboardEvent) {
         if (event && event.key && this.arrowKeyMove) {
@@ -92,26 +106,43 @@ export class NgImageFullscreenViewComponent implements OnInit, AfterViewInit, On
             if (event.key.toLowerCase() === 'arrowleft') {
                 this.prevImageLightbox();
             }
+
+            if (event.key.toLowerCase() === 'escape') {
+                this.closeLightbox();
+            }
         }
     }
 
     constructor(
-        public imageFullscreenViewService: NgImageFullscreenViewService,
         private cdRef: ChangeDetectorRef,
         private sanitizer: DomSanitizer,
         private elRef: ElementRef,
+        public imageFullscreenViewService: NgImageFullscreenViewService,
         @Inject(DOCUMENT) private document: any) { }
 
     ngOnInit() {
     }
 
     ngAfterViewInit() {
-        this.getImageData();
-        this.cdRef.detectChanges();
     }
 
     ngOnDestroy() {
         this.resetState();
+    }
+
+    setPopupSliderWidth() {
+        if (window && window.innerWidth) {
+            this.popupWidth = window.innerWidth;
+            this.totalImages = this.images.length;
+            if (typeof (this.currentImageIndex) === 'number' && this.currentImageIndex !== undefined) {
+                this.marginLeft = -1 * this.popupWidth * this.currentImageIndex;
+                this.getImageData();
+                this.nextPrevDisable();
+                setTimeout(() => {
+                    this.showLoading = false;
+                }, 500);
+            }
+        }
     }
 
     closeLightbox() {
@@ -119,24 +150,22 @@ export class NgImageFullscreenViewComponent implements OnInit, AfterViewInit, On
     }
 
     prevImageLightbox() {
-        if (this.infinite && this.currentImageIndex === 0) {
-            this.currentImageIndex = this.images.length;
-        }
-
+        this.effectStyle = `all ${this.speed}s ease-in-out`;
         if (this.currentImageIndex > 0 && !this.lightboxPrevDisable) {
             this.currentImageIndex--;
+            this.prevImage.emit();
+            this.marginLeft = -1 * this.popupWidth * this.currentImageIndex;
             this.getImageData();
             this.nextPrevDisable();
         }
     }
 
     nextImageLightbox() {
-        if (this.infinite && this.currentImageIndex === this.images.length - 1) {
-            this.currentImageIndex = -1;
-        }
-
+        this.effectStyle = `all ${this.speed}s ease-in-out`;
         if (this.currentImageIndex < this.images.length - 1 && !this.lightboxNextDisable) {
             this.currentImageIndex++;
+            this.nextImage.emit();
+            this.marginLeft = -1 * this.popupWidth * this.currentImageIndex;
             this.getImageData();
             this.nextPrevDisable();
         }
@@ -145,7 +174,9 @@ export class NgImageFullscreenViewComponent implements OnInit, AfterViewInit, On
     nextPrevDisable() {
         this.lightboxNextDisable = true;
         this.lightboxPrevDisable = true;
-        this.applyButtonDisableCondition();
+        setTimeout(() => {
+            this.applyButtonDisableCondition();
+        }, this.speed * 1000);
     }
 
     applyButtonDisableCondition() {
@@ -184,5 +215,32 @@ export class NgImageFullscreenViewComponent implements OnInit, AfterViewInit, On
 
     resetState() {
         this.images = [];
+    }
+
+    /**
+     * Swipe event handler
+     * Reference from https://stackoverflow.com/a/44511007/2067646
+     */
+    swipeLightboxImg(e: TouchEvent, when: string): void {
+        const coord: [number, number] = [e.changedTouches[0].pageX, e.changedTouches[0].pageY];
+        const time = new Date().getTime();
+
+        if (when === 'start') {
+            this.swipeLightboxImgCoord = coord;
+            this.swipeLightboxImgTime = time;
+        } else if (when === 'end') {
+            const direction = [coord[0] - this.swipeLightboxImgCoord[0], coord[1] - this.swipeLightboxImgCoord[1]];
+            const duration = time - this.swipeLightboxImgTime;
+
+            if (duration < 1000 //
+                && Math.abs(direction[0]) > 30 // Long enough
+                && Math.abs(direction[0]) > Math.abs(direction[1] * 3)) { // Horizontal enough
+                if (direction[0] < 0) {
+                    this.nextImageLightbox();
+                } else {
+                    this.prevImageLightbox();
+                }
+            }
+        }
     }
 }
