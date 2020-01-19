@@ -1,0 +1,21 @@
+.group-1,
+.group-2 {
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    display: table;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+.group-1 img,
+.group-2 img {
+    width: 220px;
+    height: 200px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.group-1 label,
+.group-2 label {
+    padding: 0px 5px;
+}

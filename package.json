@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 4100 --host 0.0.0.0",
     "build": "ng build ng-image-fullscreen-view",
     "build:watch": "ng build ng-image-fullscreen-view --watch",
     "test": "ng test",
