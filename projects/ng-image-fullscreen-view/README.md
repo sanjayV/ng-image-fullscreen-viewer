@@ -1,24 +1,110 @@
-# NgImageFullscreenView
+# Angular Image Fullscreen Viewer
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.14.
+An Angular responsive image fullscreen viewer.
+Also support youtube and mp4 video urls.
 
-## Code scaffolding
+## Features!
 
-Run `ng generate component component-name --project ng-image-fullscreen-view` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-image-fullscreen-view`.
-> Note: Don't forget to add `--project ng-image-fullscreen-view` or else it will be added to the default project in your `angular.json` file. 
+  - Responsive
+  - captures swipes from phones and tablets
+  - Compatible with Angular Universal
+  - captures keyboard next/previous arrow key event for lightbox image move
+  - Support Images (jpeg, jpg, gif, png and Base64-String), Youtube url and MP4 video (url and Base64-String)
 
-## Build
+### Demo: https://sanjayv.github.io/ng-image-fullscreen-view/
 
-Run `ng build ng-image-fullscreen-view` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Publishing
+# Installation
+`npm install ng-image-fullscreen-view`
 
-After building your library with `ng build ng-image-fullscreen-view`, go to the dist folder `cd dist/ng-image-fullscreen-view` and run `npm publish`.
+# Setup :
 
-## Running unit tests
+**Import module in your `app.module.ts`:**
+```typescript
+import { NgImageFullscreenViewModule } from 'ng-image-fullscreen-view';
+...
 
-Run `ng test ng-image-fullscreen-view` to execute the unit tests via [Karma](https://karma-runner.github.io).
+@NgModule({
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        NgImageFullscreenViewModule,
+        ...
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
+})
 
-## Further help
+export class AppModule {
+}
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```
+
+**Add component in your template file.**
+```html
+<ng-image-fullscreen-view
+    [images]="imageObject"
+    [show]="showFlag"
+    (close)="closeEventHandler()"></ng-image-fullscreen-view>
+```
+
+**ImageObject format**
+```js
+imageObject: Array<object> = [{
+        image: 'assets/img/slider/1.jpg',
+        thumbImage: 'assets/img/slider/1_min.jpeg',
+        alt: 'alt of image',
+        title: 'title of image'
+    }, {
+        image: '.../iOe/xHHf4nf8AE75h3j1x64ZmZ//Z==', // Support base64 image
+        thumbImage: '.../iOe/xHHf4nf8AE75h3j1x64ZmZ//Z==', // Support base64 image
+        title: 'Image title', //Optional: You can use this key if want to show image with title
+        alt: 'Image alt' //Optional: You can use this key if want to show image with alt
+    }
+];
+```
+
+**Image, Youtube and MP4 url's object format**
+ ```js
+imageObject: Array<object> = [{
+        video: 'https://youtu.be/6pxRHBw-k8M' // Youtube url
+    },
+	{
+		video: 'assets/video/movie.mp4', // MP4 Video url
+	},
+	{
+		video: 'assets/video/movie2.mp4',
+        posterImage: 'assets/img/slider/2_min.jpeg', //Optional: You can use this key if you want to show video poster image in slider
+        title: 'Image title'
+    },
+	{
+		image: 'assets/img/slider/1.jpg',
+        thumbImage: 'assets/img/slider/1_min.jpeg',
+        alt: 'Image alt'
+	}
+    ...
+];
+```
+
+## API Reference (optional) :
+
+| Name | Type | Data Type | Description | Default |
+|------|------|-----------|-------------|---------|
+| images | @Input  | Array   | Images array. |  |
+| imageIndex | @Input  | number   | Selected image index. | 0 |
+| show | @Input  | boolean   | Image fullscreen popup visiable flag. | false |
+| infinite | @Input  | boolean   | Infinite sliding images if value is **true**. | false |
+| videoAutoPlay | @Input | boolean | Auto play popup video | false |
+| direction | @Input | string | Set text direction. You can pass **rtl** / **ltr** / **auto** | ltr |
+| paginationShow | @Input  | boolean | Display pagination at bottom. | false |
+| animationSpeed | @Input  | number | By this user can set slider animation speed. Minimum value is **0.1 second** and Maximum value is **5 second**. | 1 |
+| arrowKeyMove | @Input | boolean | Disable slider and popup image left/right move on arrow key press event, if value is `false`  | true |
+| close | @Output | n/a | Executes when click on close. | n/a |
+| prevImage | @Output | n/a | Executes when click on previous arrow. | n/a |
+| nextImage | @Output | n/a | Executes when click on next arrow. | n/a |
+
+## License
+As Angular itself, this module is released under the permissive [MIT license](http://revolunet.mit-license.org). 
+
+Your contributions and suggestions are always welcome :)
