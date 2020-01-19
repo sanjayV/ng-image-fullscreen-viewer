@@ -182,6 +182,12 @@ ng-image-fullscreen-view {
                 z-index: 12;
                 cursor: pointer;
                 transition: all .2s ease;
+                /* &:hover {
+                    transform: rotate(90deg);
+                    transform-origin: 50% 50%;
+                    -webkit-transform-origin: 50% 50%;
+                    -webkit-transform: rotate(90deg);
+                } */
             }
             &.error-msg {
                 background-image: none;

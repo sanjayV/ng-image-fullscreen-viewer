@@ -53,6 +53,7 @@ export class NgImageFullscreenViewComponent implements OnInit, AfterViewInit, On
     @ViewChild('lightboxImageDiv', { static: false }) lightboxImageDiv;
 
     // @Inputs
+    @Input() images: Array<object> = [];
     @Input()
     set imageIndex(index: number) {
         if (index !== undefined && index > -1 && index < this.images.length) {
@@ -72,7 +73,6 @@ export class NgImageFullscreenViewComponent implements OnInit, AfterViewInit, On
     }
     @Input() videoAutoPlay: boolean = false;
     @Input() direction: string = 'ltr';
-    @Input() images: Array<object> = [];
     @Input() paginationShow: boolean = false;
     @Input()
     set animationSpeed(data: number) {

@@ -26,9 +26,9 @@
                 </div>
             </div>
             <div [dir]="direction" [ngClass]="{'show': title, 'hide': !title}" class="caption">{{ title }}</div>
-            <a *ngIf="totalImages > 1" [ngClass]="{'disable': lightboxPrevDisable}" class="prev icons prev-icon" (click)="prevImageLightbox()">&lsaquo;</a>
-            <a *ngIf="totalImages > 1" [ngClass]="{'disable': lightboxNextDisable}" class="next icons next-icon" (click)="nextImageLightbox()">&rsaquo;</a>
+            <a *ngIf="images.length > 1" [ngClass]="{'disable': lightboxPrevDisable}" class="prev icons prev-icon" (click)="prevImageLightbox()">&lsaquo;</a>
+            <a *ngIf="images.length > 1" [ngClass]="{'disable': lightboxNextDisable}" class="next icons next-icon" (click)="nextImageLightbox()">&rsaquo;</a>
         </div>
     </div>
-    <div *ngIf="paginationShow" class="popup-pagination">{{currentImageIndex}} of {{totalImages}}</div>
+    <div *ngIf="paginationShow" class="popup-pagination">{{currentImageIndex + 1}} of {{totalImages}}</div>
 </div>
