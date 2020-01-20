@@ -11,7 +11,8 @@ Also support youtube and mp4 video urls.
   - captures keyboard next/previous arrow key event for lightbox image move
   - Support Images (jpeg, jpg, gif, png and Base64-String), Youtube url and MP4 video (url and Base64-String)
 
-### Demo: https://sanjayv.github.io/ng-image-fullscreen-view/
+### Working Demo: https://angular-bkosu5.stackblitz.io/
+### Code example: https://stackblitz.com/edit/angular-bkosu5
 
 
 # Installation
@@ -41,12 +42,40 @@ export class AppModule {
 
 ```
 
-**Add component in your template file.**
+**Add component in your template file :**
 ```html
+<img src="path-of-image.jpg" (click)="showLightbox(0)" />
+
 <ng-image-fullscreen-view
     [images]="imageObject"
+    [imageIndex]="selectedImageIndex"
     [show]="showFlag"
     (close)="closeEventHandler()"></ng-image-fullscreen-view>
+```
+
+**Add closeEventHanler and showFlag conditions in `your.component.ts` :**
+```typescript
+export class AppComponent {
+    showFlag: boolean = false;
+    selectedImageIndex: number = -1;
+
+    constructor () {}
+
+    ...
+
+    showLightbox(index) {
+        this.selectedImageIndex = index;
+        this.showFlag = true;
+    }
+
+    closeEventHandler() {
+        this.showFlag = false;
+        this.currentIndex = -1;
+    }
+
+    ...
+}
+
 ```
 
 **ImageObject format**

@@ -7,7 +7,7 @@
 <div class="group-2">
     <label>Group 2 (Video + Image)</label>
     <div>
-        <img *ngFor="let img of imageObject1; let i = index" [src]="img.thumbImage || img.posterImage" (click)="showLightbox(imageObject1, 0)" />
+        <img *ngFor="let img of imageObject1; let i = index" [src]="img.thumbImage || img.posterImage" (click)="showLightbox(imageObject1, i)" />
     </div>
 </div>
 <ng-image-fullscreen-view
