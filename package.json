@@ -1,6 +1,7 @@
 {
   "name": "ng-image-fullscreen-viewer",
-  "version": "1.0.1",
+  "version": "1.0.2",
+  "description": "An Angular responsive image full screen viewer. Also support youtube and mp4 video urls, captures swipes from phones and tablets, Compatible with Angular Universal, Captures keyboard next/previous arrow.",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -11,7 +12,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
+  "files": [
+    "dist/ng-image-fullscreen-view"
+  ],
   "dependencies": {
     "@angular/animations": "^8.2.14",
     "@angular/common": "^8.2.14",
