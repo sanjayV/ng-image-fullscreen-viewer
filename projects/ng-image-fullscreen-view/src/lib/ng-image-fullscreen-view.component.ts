@@ -85,6 +85,7 @@ export class NgImageFullscreenViewComponent implements OnInit, AfterViewInit, On
     }
     @Input() infinite: boolean = false;
     @Input() arrowKeyMove: boolean = true;
+    @Input() showVideoControls: boolean = true;
 
     // @Output
     @Output() close = new EventEmitter<any>();

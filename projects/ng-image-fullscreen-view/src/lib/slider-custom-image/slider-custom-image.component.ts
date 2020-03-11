@@ -16,7 +16,7 @@ const youtubeRegExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([
     selector: 'custom-img',
     templateUrl: './slider-custom-image.component.html'
 })
-export class SliderCustomImageComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SliderCustomImageComponent {
     YOUTUBE = 'youtube';
     IMAGE = 'image';
     VIDEO = 'video';
@@ -27,6 +27,7 @@ export class SliderCustomImageComponent implements OnInit, AfterViewInit, OnDest
     // @inputs
     @Input() showVideo: boolean = false;
     @Input() videoAutoPlay: boolean = false;
+    @Input() showVideoControls: number = 1;
     @Input()
     set imageUrl(url) {
         if (url && typeof (url) === 'string') {
@@ -42,7 +43,7 @@ export class SliderCustomImageComponent implements OnInit, AfterViewInit, OnDest
             if (match && match[2].length === 11) {
                 if (this.showVideo) {
                     this.type = this.YOUTUBE;
-                    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${'//www.youtube.com/embed/'}${match[2]}${this.videoAutoPlay ? '?autoplay=1&enablejsapi=1' : '?autoplay=0&enablejsapi=1'}`);
+                    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${'//www.youtube.com/embed/'}${match[2]}${this.videoAutoPlay ? '?autoplay=1&enablejsapi=1' : '?autoplay=0&enablejsapi=1'}${'&controls='}${this.showVideoControls}`);
                 } else {
                     this.type = this.IMAGE;
                     this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://img.youtube.com/vi/${match[2]}/0.jpg`);
@@ -62,12 +63,13 @@ export class SliderCustomImageComponent implements OnInit, AfterViewInit, OnDest
     constructor(public imageFullscreenViewService: NgImageFullscreenViewService, private sanitizer: DomSanitizer) {
     }
 
-    ngOnInit() {
-    }
-
-    ngAfterViewInit() {
-    }
-
-    ngOnDestroy() {
+    videoClickHandler(event) {
+        if (event && event.srcElement && !this.showVideoControls) {
+            if (event.srcElement.paused) {
+                event.srcElement.play();
+            } else {
+                event.srcElement.pause();
+            }
+        }
     }
 }

@@ -10,10 +10,11 @@
         frameborder="0"
         allowfullscreen></iframe>
     <video class="video"
+        (click)="videoClickHandler($event)"
         [autoplay]="videoAutoPlay"
         *ngIf="type === VIDEO"
         type="video/mp4"
-        controls
+        [attr.controls]="showVideoControls ? showVideoControls : null"
         controlsList="nodownload">
         <source [src]="fileUrl" type="video/mp4">
         Your browser does not support the video tag.

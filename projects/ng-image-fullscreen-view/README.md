@@ -125,6 +125,7 @@ imageObject: Array<object> = [{
 | show | @Input  | boolean   | Image fullscreen popup visiable flag. | false |
 | infinite | @Input  | boolean   | Infinite sliding images if value is **true**. | false |
 | videoAutoPlay | @Input | boolean | Auto play popup video | false |
+| showVideoControls | @Input | boolean | Hide Youtube and MP4 video controls if value is `false` | true |
 | direction | @Input | string | Set text direction. You can pass **rtl** / **ltr** / **auto** | ltr |
 | paginationShow | @Input  | boolean | Display pagination at bottom. | false |
 | animationSpeed | @Input  | number | By this user can set slider animation speed. Minimum value is **0.1 second** and Maximum value is **5 second**. | 1 |

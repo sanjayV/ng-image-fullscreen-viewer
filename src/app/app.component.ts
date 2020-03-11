@@ -32,6 +32,11 @@ export class AppComponent {
     }, {
         video: 'https://youtu.be/tYa6OLQHrEc',
         posterImage: 'https://img.youtube.com/vi/tYa6OLQHrEc/hqdefault.jpg'
+    },{
+        video: 'assets/video/movie2.mp4',
+        posterImage: 'assets/img/slider/11.jpg',
+        title: 'MP4 Video exmaple two with Poster-Image.',
+        alt: 'alt MP4 Video exmaple two with Poster-Image.'
     }, {
         image: 'assets/img/slider/4.jpg',
         thumbImage: 'assets/img/slider/4_min.jpeg'

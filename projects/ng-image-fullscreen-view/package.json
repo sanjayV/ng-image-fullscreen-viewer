@@ -1,6 +1,6 @@
 {
   "name": "ng-image-fullscreen-view",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An Angular responsive image full screen viewer. Also support youtube and mp4 video urls, captures swipes from phones and tablets, Compatible with Angular Universal, Captures keyboard next/previous arrow.",
   "peerDependencies": {
     "@angular/common": "^8.2.14",
