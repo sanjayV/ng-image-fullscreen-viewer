@@ -14,12 +14,11 @@ import {
     ElementRef
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { NgImageFullscreenViewService } from './ng-image-fullscreen-view.service';
 
-const youtubeRegExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/,
-    validFileExtensions = ['jpeg', 'jpg', 'gif', 'png'],
-    validVideoExtensions = ['mp4'];
+const LIGHTBOX_NEXT_ARROW_CLICK_MESSAGE = 'lightbox next',
+    LIGHTBOX_PREV_ARROW_CLICK_MESSAGE = 'lightbox previous';
 
 @Component({
     selector: 'ng-image-fullscreen-view',
@@ -28,10 +27,6 @@ const youtubeRegExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([
     encapsulation: ViewEncapsulation.None
 })
 export class NgImageFullscreenViewComponent implements OnInit, AfterViewInit, OnDestroy {
-    YOUTUBE = 'youtube';
-    IMAGE = 'image';
-    VIDEO = 'video';
-    INVALID = 'invalid';
     totalImages: number = 0;
     nextImageIndex: number = -1;
     popupWidth: number = 1200;

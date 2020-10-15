@@ -1,8 +1,5 @@
 import {
     Component,
-    OnInit,
-    AfterViewInit,
-    OnDestroy,
     Input
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
