@@ -1,17 +1,17 @@
-<div class="group-1">
+<!-- <div class="group-1">
     <label>Group 1 (Image only)</label>
     <div>
         <img *ngFor="let img of imageObject; let i = index" [src]="img.thumbImage" (click)="showLightbox(imageObject, i)" />
     </div>
-</div>
+</div> -->
 <div class="group-2">
     <label>Group 2 (Video + Image)</label>
     <div>
-        <img *ngFor="let img of imageObject1; let i = index" [src]="img.thumbImage || img.posterImage" (click)="showLightbox(imageObject1, i)" />
+        <img *ngFor="let img of imageObject1; let i = index" [src]="img.image || img.posterImage" (click)="showLightbox(imageObject1, i)" />
     </div>
 </div>
 <ng-image-fullscreen-view
-    [images]="currentObj"
+    [images]="imageObject1"
     [imageIndex]="currentIndex"
     [show]="visiableLightbox"
     (close)="closeHandler()"></ng-image-fullscreen-view>

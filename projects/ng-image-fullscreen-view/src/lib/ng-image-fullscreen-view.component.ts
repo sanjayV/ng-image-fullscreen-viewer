@@ -26,7 +26,7 @@ const LIGHTBOX_NEXT_ARROW_CLICK_MESSAGE = 'lightbox next',
     styleUrls: ['./ng-image-fullscreen-view.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class NgImageFullscreenViewComponent implements OnInit, AfterViewInit, OnDestroy {
+export class NgImageFullscreenViewComponent implements OnDestroy {
     totalImages: number = 0;
     nextImageIndex: number = -1;
     popupWidth: number = 1200;
@@ -44,8 +44,8 @@ export class NgImageFullscreenViewComponent implements OnInit, AfterViewInit, On
     private swipeLightboxImgCoord?: [number, number];
     private swipeLightboxImgTime?: number;
 
-    @ViewChild('lightboxDiv', { static: false }) lightboxDiv;
-    @ViewChild('lightboxImageDiv', { static: false }) lightboxImageDiv;
+    @ViewChild('lightboxDiv') lightboxDiv;
+    @ViewChild('lightboxImageDiv') lightboxImageDiv;
 
     // @Inputs
     @Input() images: Array<object> = [];
@@ -115,12 +115,6 @@ export class NgImageFullscreenViewComponent implements OnInit, AfterViewInit, On
         private elRef: ElementRef,
         public imageFullscreenViewService: NgImageFullscreenViewService,
         @Inject(DOCUMENT) private document: any) { }
-
-    ngOnInit() {
-    }
-
-    ngAfterViewInit() {
-    }
 
     ngOnDestroy() {
         this.resetState();

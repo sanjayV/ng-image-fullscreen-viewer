@@ -22,7 +22,6 @@ export class SliderCustomImageComponent {
     type = this.IMAGE;
 
     // @inputs
-    @Input() showVideo: boolean = false;
     @Input() videoAutoPlay: boolean = false;
     @Input() showVideoControls: number = 1;
     @Input()
@@ -38,13 +37,8 @@ export class SliderCustomImageComponent {
             // verify for youtube url
             const match = url.match(youtubeRegExp);
             if (match && match[2].length === 11) {
-                if (this.showVideo) {
-                    this.type = this.YOUTUBE;
-                    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${'//www.youtube.com/embed/'}${match[2]}${this.videoAutoPlay ? '?autoplay=1&enablejsapi=1' : '?autoplay=0&enablejsapi=1'}${'&controls='}${this.showVideoControls}`);
-                } else {
-                    this.type = this.IMAGE;
-                    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://img.youtube.com/vi/${match[2]}/0.jpg`);
-                }
+                this.type = this.YOUTUBE;
+                this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${'//www.youtube.com/embed/'}${match[2]}${this.videoAutoPlay ? '?autoplay=1&enablejsapi=1' : '?autoplay=0&enablejsapi=1'}${'&controls='}${this.showVideoControls}`);
             } else if (this.fileExtension && validFileExtensions.indexOf(this.fileExtension.toLowerCase()) > -1) {
                 this.type = this.IMAGE;
             } else if (this.fileExtension && validVideoExtensions.indexOf(this.fileExtension.toLowerCase()) > -1) {
