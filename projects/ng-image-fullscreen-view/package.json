@@ -21,6 +21,9 @@
     "url": "https://github.com/sanjayV/ng-image-fullscreen-viewer.git"
   },
   "homepage": "https://github.com/sanjayV/ng-image-fullscreen-viewer",
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
   "bugs": {
     "url": "https://github.com/sanjayV/ng-image-fullscreen-viewer/issues"
   }
