@@ -28,7 +28,7 @@ export class SliderCustomImageComponent {
     set imageUrl(url) {
         if (url && typeof (url) === 'string') {
             this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-            this.fileExtension = url.replace(/^.*\./, '');
+            this.fileExtension = url.replace(/^.*\./, '').split('?')[0];
             if (this.imageFullscreenViewService.base64FileExtension(url)
             && (validFileExtensions.indexOf(this.imageFullscreenViewService.base64FileExtension(url).toLowerCase()) > -1 
             || validVideoExtensions.indexOf(this.imageFullscreenViewService.base64FileExtension(url).toLowerCase()) > -1)) {
