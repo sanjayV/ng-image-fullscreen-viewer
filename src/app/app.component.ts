@@ -13,15 +13,20 @@ export class AppComponent {
     title = 'app';
 
     imageObject1 = [{
-        video: 'https://youtu.be/6pxRHBw-k8M'
+        image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/5.jpg',
+        thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/5.jpg',
+        title: 'Hummingbirds are amazing creatures'
     }, {
-        video: 'https://youtu.be/tYa6OLQHrEc'
-    },{
-        video: 'assets/video/movie2.mp4',
-        title: 'MP4 Video exmaple two with Poster-Image.',
-        alt: 'alt MP4 Video exmaple two with Poster-Image.'
+        image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/9.jpg',
+        thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/9.jpg'
     }, {
-        image: 'assets/img/slider/4.jpg',
+        video: 'https://youtu.be/tYa6OLQHrEc',
+        posterImage: 'https://img.youtube.com/vi/tYa6OLQHrEc/hqdefault.jpg',
+        title: 'Youtube example one with title.'
+    }, {
+        image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/4.jpg',
+        thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/4.jpg',
+        title: 'Most beautiful birds in the world flying.'
     }];
 
     showLightbox(object, index) {
