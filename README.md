@@ -3,6 +3,8 @@
 An Angular responsive image fullscreen viewer.
 Also support youtube and mp4 video urls.
 
+(Compatible with Angular Version: 11)
+
 ## Features!
 
   - Responsive
@@ -85,7 +87,7 @@ imageObject: Array<object> = [{
     }, {
         image: 'assets/img/slider/1.jpg',
         alt: 'alt of image', // Optional
-        title: 'title of image' // Optional: Show image with description text 
+        title: 'title of image' // Optional: Show image with description text
     }, {
         image: '.../iOe/xHHf4nf8AE75h3j1x64ZmZ//Z==', // Support base64 image
         title: 'Image title', //Optional: You can use this key if want to show image with title
@@ -133,6 +135,6 @@ imageObject: Array<object> = [{
 | nextImage | @Output | n/a | Executes when click on next arrow. | n/a |
 
 ## License
-As Angular itself, this module is released under the permissive [MIT license](http://revolunet.mit-license.org). 
+As Angular itself, this module is released under the permissive [MIT license](http://revolunet.mit-license.org).
 
 Your contributions and suggestions are always welcome :)

@@ -1,15 +1,12 @@
 import {
     ChangeDetectorRef,
     Component,
-    OnInit,
     Inject,
-    AfterViewInit,
     OnDestroy,
     Input,
     Output,
     EventEmitter,
     ViewEncapsulation,
-    ViewChild,
     HostListener,
     ElementRef
 } from '@angular/core';
@@ -27,42 +24,41 @@ const LIGHTBOX_NEXT_ARROW_CLICK_MESSAGE = 'lightbox next',
     encapsulation: ViewEncapsulation.None
 })
 export class NgImageFullscreenViewComponent implements OnDestroy {
-    totalImages: number = 0;
-    nextImageIndex: number = -1;
-    popupWidth: number = 1200;
-    marginLeft: number = 0;
+    totalImages: any = 0;
+    nextImageIndex: any = -1;
+    popupWidth: any = 1200;
+    marginLeft: any = 0;
     imageFullscreenView: boolean = false;
     lightboxPrevDisable: boolean = false;
     lightboxNextDisable: boolean = false;
     showLoading: boolean = true;
     effectStyle: string = 'none';
-    speed: number = 1; // default speed in second
+    speed: any = 1; // default speed in second
     title: string = '';
-    currentImageIndex: number = 0;
+    currentImageIndex: any = 0;
 
     // for swipe event
-    private swipeLightboxImgCoord?: [number, number];
-    private swipeLightboxImgTime?: number;
+    private swipeLightboxImgCoord?: [any, any];
+    private swipeLightboxImgTime?: any;
 
-    @ViewChild('lightboxDiv') lightboxDiv;
-    @ViewChild('lightboxImageDiv') lightboxImageDiv;
+    //@ViewChild('lightboxDiv') lightboxDiv : any;
+    //@ViewChild('lightboxImageDiv') lightboxImageDiv;
 
     // @Inputs
     @Input() images: Array<object> = [];
     @Input()
-    set imageIndex(index: number) {
+    set imageIndex(index: any) {
         if (index !== undefined && index > -1 && index < this.images.length) {
             this.currentImageIndex = index;
         }
         this.nextPrevDisable();
     }
     @Input()
-    set show(visiableFlag: boolean) {
+    set show(visiableFlag: any) {
         this.imageFullscreenView = visiableFlag;
         this.elRef.nativeElement.ownerDocument.body.style.overflow = '';
         if (visiableFlag === true) {
             this.elRef.nativeElement.ownerDocument.body.style.overflow = 'hidden';
-            // this.getImageData();
             this.setPopupSliderWidth();
         }
     }
@@ -70,7 +66,7 @@ export class NgImageFullscreenViewComponent implements OnDestroy {
     @Input() direction: string = 'ltr';
     @Input() paginationShow: boolean = false;
     @Input()
-    set animationSpeed(data: number) {
+    set animationSpeed(data: any) {
         if (data
             && typeof (data) === 'number'
             && data >= 0.1
@@ -212,7 +208,7 @@ export class NgImageFullscreenViewComponent implements OnDestroy {
      * Reference from https://stackoverflow.com/a/44511007/2067646
      */
     swipeLightboxImg(e: TouchEvent, when: string): void {
-        const coord: [number, number] = [e.changedTouches[0].pageX, e.changedTouches[0].pageY];
+        const coord: [any, any] = [e.changedTouches[0].pageX, e.changedTouches[0].pageY];
         const time = new Date().getTime();
 
         if (when === 'start') {
